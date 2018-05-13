@@ -1,0 +1,21 @@
+Garage
+WFD/THSen/1/TempStatus/1
+WFD/THSen/1/HumdStatus/1
+Hall
+WFD/THSen/2/TempStatus/1
+WFD/THSen/2/HumdStatus/1
+Living Room
+WFD/IRTHSen/1/TempStatus/1
+WFD/IRTHSen/1/HumdStatus/1
+Kitchen
+WFD/THSen/4/TempStatus/1
+WFD/THSen/4/HumdStatus/1
+Guest Room
+WFD/THSen/5/TempStatus/1
+WFD/THSen/5/HumdStatus/1
+Master Bedroom
+WFD/THSen/6/TempStatus/1
+WFD/THSen/6/HumdStatus/1
+Loft
+WFD/THSen/3/TempStatus/1
+WFD/THSen/3/HumdStatus/1
