@@ -1,0 +1,615 @@
+//[Imports]
+import org.openhab.core.library.types.*
+import org.openhab.core.types.Command 
+import org.openhab.core.types.*
+import org.openhab.core.items.GenericItem 
+import org.openhab.io.transport.mqtt 
+import org.joda.time.DateTime
+
+import java.text.DateFormat
+import java.lang.String
+import java.lang.Integer
+import java.util.Date
+import java.util.Calendar
+import java.text.SimpleDateFormat
+import java.text.SimpleTimeFormat
+import java.util.regex.Pattern
+import java.util.regex.Matcher
+//import org.joda.time.*
+//import org.openhab.model.script.actions.Timer
+
+
+//[Variable Declarations]
+var Number SyncCount = 1 
+var Number RSSIPollCount = 1 
+
+var Number GarageTemperatureCurrent = -0
+var Number GarageHumidityCurrent = -0
+var Number LivingRoomTemperatureCurrent = -0
+var Number LivingRoomHumidityCurrent = -0
+  
+//[Rules]
+
+// Gave up on System started.
+// It doesn't work. Use cron instead 
+/*
+rule "Startup"
+when
+	System started
+then
+	//LoggingMinutes = 10
+	//EthernetSetLoggingPeriod.sendCommand(LoggingMinutes)
+
+	//WiFiButton1Update.sendCommand(ON)
+	//WiFiMainsSwitch1Update.sendCommand(ON)
+	//WiFiMainsSwitch2Update.sendCommand(ON)
+	EthernetButton1Update.sendCommand(ON)
+	EthernetLoggingUpdate.sendCommand(ON)
+	EthernetLoggingPeriodUpdate.sendCommand(ON)  
+	EthernetStudyLightControllerUpdate.sendCommand(ON)
+	EthernetLCAlarmStatusRead.sendCommand("")
+end
+*/
+
+rule "Sync Controls"
+when      
+	Time cron "0 0/3 * 1/1 * ?" 
+	// "0 0/M * 1/1 * ?" M=Period cron job runs in minutes
+then
+	logDebug("stevequinnhousehold", "Sync Controls ==>Start : "+SyncCount)
+	if (SyncCount > 0) {
+		logDebug("stevequinnhousehold", "Sync Controls ==>Inside If block")
+		SyncCount = SyncCount - 1
+		//WiFiButton1Update.sendCommand(ON)
+		WiFiButton1Update.sendCommand(ON) 
+		WiFiMainsSwitch1Update.sendCommand(ON)
+		WiFiMainsSwitch2Update.sendCommand(ON)
+		EthernetLoggingUpdate.sendCommand(ON)
+		EthernetLoggingPeriodUpdate.sendCommand(ON)
+		EthernetStudyLightControllerUpdate.sendCommand(ON)
+		EthernetLCAlarmStatusRead.sendCommand("")
+		EthernetStudyLightTempUpdate.sendCommand(ON)
+		logDebug("stevequinnhousehold", "Sync Controls ==>Done")
+	}  
+end
+ 
+
+
+
+rule "Set Mains controller1 State"
+when   
+    Item WiFiMainsSwitch1UpdateConfirm changed 
+//    Item WiFiMainsSwitch1UpdateConfirm received update
+//    Item WiFiMainsSwitch1UpdateConfirm received command
+then
+    logDebug("stevequinnhousehold", "In Mains controller1 handler : "+WiFiMainsSwitch1UpdateConfirm.state)
+    if (WiFiMainsSwitch1UpdateConfirm.state=="Off") {
+    	postUpdate(WiFiMainsSwitch1, OFF)
+    	logDebug("stevequinnhousehold", "WiFiMainsSwitch1 ==> Off")
+    }
+    else
+    if (WiFiMainsSwitch1UpdateConfirm.state=="On") {
+    	postUpdate(WiFiMainsSwitch1, ON)
+    	logDebug("stevequinnhousehold", "WiFiMainsSwitch1 ==> On")
+    } 
+end   
+
+
+rule "Set Mains controller2 State"
+when   
+    Item WiFiMainsSwitch2UpdateConfirm changed 
+//    Item WiFiMainsSwitch2UpdateConfirm received update
+//    Item WiFiMainsSwitch2UpdateConfirm received command
+then
+    logDebug("stevequinnhousehold", "In Mains controller2 handler : "+WiFiMainsSwitch2UpdateConfirm.state)
+    if (WiFiMainsSwitch2UpdateConfirm.state=="Off") {
+    	postUpdate(WiFiMainsSwitch2, OFF)
+    	logDebug("stevequinnhousehold", "WiFiMainsSwitch2 ==> Off")
+    }
+    else
+    if (WiFiMainsSwitch2UpdateConfirm.state=="On") {
+    	postUpdate(WiFiMainsSwitch2, ON)
+    	logDebug("stevequinnhousehold", "WiFiMainsSwitch2 ==> On")
+    } 
+end   
+
+
+
+
+
+//
+// This is required or RRD service won't show any data
+// See : Using RRD4j Charts
+// At  : https://github.com/openhab/openhab/wiki/Charts
+//
+rule "Read Study Light Control Unit Internal Temperature"
+when      
+	Time cron "0 0/1 * 1/1 * ?" 
+	// "0 0/M * 1/1 * ?" M=Period cron job runs in minutes
+then
+	EthernetStudyLightTempUpdate.sendCommand(ON)
+end
+
+
+
+rule "Read Study Lights State"
+when   
+    Item EthernetStudyLightStatusConfirm received update
+then
+  var StudyLightStatus = EthernetStudyLightStatusConfirm.state as DecimalType
+  var state = StudyLightStatus.toBigDecimal.toBigInteger
+
+  logDebug("stevequinnhousehold", "Study Light Status ==>"+state.toString)
+  if (state.testBit(0) ) {  // Swan Light
+  	postUpdate(EthernetSwanLight, ON)
+    logDebug("stevequinnhousehold", "EthernetSwanLight ==> On")
+  } else {
+  	postUpdate(EthernetSwanLight, OFF)
+    logDebug("stevequinnhousehold", "EthernetSwanLight ==> Off")
+  }
+
+  if (state.testBit(1) ) {  // Top Shelf Light 
+  	postUpdate(EthernetTopShelfLight, ON)
+    logDebug("stevequinnhousehold", "EthernetTopShelfLight ==> On")
+  } else {
+  	postUpdate(EthernetTopShelfLight, OFF)
+    logDebug("stevequinnhousehold", "EthernetTopShelfLight ==> Off")
+  }
+
+  if (state.testBit(2) ) {  // Under Desk Light
+  	postUpdate(EthernetUnderDeskLight, ON)
+    logDebug("stevequinnhousehold", "EthernetUnderDeskLight ==> On")
+  } else {
+  	postUpdate(EthernetUnderDeskLight, OFF)
+    logDebug("stevequinnhousehold", "EthernetUnderDeskLight ==> Off")
+  }
+	
+end   
+ 
+
+rule "Play AWD for Over Temperature in Study Lights Controller"
+when   
+    Item EthernetLCAlarmStatus received update
+then
+    logDebug("stevequinnhousehold", "In Over Temp Rule")
+    if (EthernetLCAlarmStatus.state =="1") {
+    	 logDebug("stevequinnhousehold", "Sound Play Requested")
+    	 playSound("OverTemp.mp3")
+    }
+end   
+ 
+
+rule "Set Logging State"
+when   
+    Item EthernetLoggingUpdateConfirm changed 
+then
+    if (EthernetLoggingUpdateConfirm.state==OFF) {
+    	postUpdate(EthernetLogging, OFF)
+    }
+    else
+    if (EthernetLoggingUpdateConfirm.state==ON) {
+    	postUpdate(EthernetLogging, ON)
+    } 
+end   
+
+
+/*
+rule "Get Current Logging Period" 
+when
+    Item EthernetLoggingPeriodUpdateConfirm changed
+then
+	//var String Str = new String(String::format("%s", EthernetLoggingPeriodUpdateConfirm.state.toString()))
+	var String Str = new String(EthernetLoggingPeriodUpdateConfirm.state.toString())
+	//var String Str = new String("Hello:World")
+ 
+	var String[] parts = Str.split(":")
+	var String part1 = parts.get(0)
+	var String part2 = parts.get(1) 
+	//var int hours = Integer.parseInt(part1.trim())
+	//var int minutes = Integer.parseInt(part2.trim())
+
+    logDebug("stevequinnhousehold", "GetLoggingPeriod ==>"+part1+" "+part2)
+    //logDebug("stevequinnhousehold", "GetLoggingPeriod ==>"+Str)
+    //logDebug("stevequinnhousehold", "GetLoggingPeriod ==>"+String::format("%02d", hours)+":"+String::format("%02d", minutes))  
+    //EthernetSetLoggingPeriod.sendCommand( (hours * 60) +  minutes)
+end
+*/
+
+
+rule "Set Logging Period"
+when
+  Item EthernetSetLoggingPeriodButton received command
+then 
+  // In format 'HH:MM'
+  var TotalLoggingPeriodMinutes = EthernetSetLoggingPeriod.state as DecimalType
+  var int TmpLoggingHours = (TotalLoggingPeriodMinutes/60).intValue
+  var int TmpLoggingMinutes = (TotalLoggingPeriodMinutes - (TmpLoggingHours*60)).intValue
+  
+  logDebug("stevequinnhousehold", "SetLoggingPeriod ==>"+String::format("%02d", TmpLoggingHours)+":"+String::format("%02d", TmpLoggingMinutes))  
+  EthernetSetLoggingPeriodCommand.sendCommand(String::format("%02d", TmpLoggingHours)+":"+String::format("%02d", TmpLoggingMinutes))
+end
+
+ 
+
+rule "Set Time" 
+when
+  Item SetTimeButton received command
+then 
+  // In format 'HH:MM', 24hr format
+  var SimpleDateFormat df = new SimpleDateFormat( "HH:mm" )
+  var String Timestamp = df.format( new Date() )
+  EthernetSetTime.sendCommand(Timestamp)
+end
+
+ 
+
+rule "Set Date"
+when
+  Item SetDateButton received command
+then 
+  // In format 'DD/MM/YY'
+  var SimpleDateFormat df = new SimpleDateFormat( "dd/MM/YY" )
+  var String Timestamp = df.format( new Date() )
+  EthernetSetDate.sendCommand(Timestamp)
+end
+
+
+rule "Read Study Light Controller Temperature Alarm Status" 
+when
+  Item EthernetLCReadTempAlarmButton received update
+then 
+  if (EthernetLCReadTempAlarmButton.state == ON){
+  	EthernetLCAlarmStatusRead.sendCommand("")
+  	EthernetLCReadTempAlarmButton.state = OFF
+  }
+end
+ 
+ 
+rule "Read Study Light Controller Temperature Status" 
+when
+  Item EthernetLCReadTempButton received update
+then 
+  if (EthernetLCReadTempButton.state == ON ) {
+  	EthernetLCTempStatusRead.sendCommand("")
+  	EthernetLCReadTempButton.state = OFF
+  } 
+end
+
+
+
+rule "Poll RSSIs"
+when      
+	Time cron "0 0/1 * 1/1 * ?" 
+	// "0 0/M * 1/1 * ?" M=Period cron job runs in minutes
+then
+	logDebug("stevequinnhousehold", "Poll RSSIs ==>Start : "+RSSIPollCount)
+	if (RSSIPollCount >= 10) {
+		RSSIPollCount = 1
+		logDebug("stevequinnhousehold", "Poll RSSIs ==>Reset : "+RSSIPollCount)
+	}
+	
+	if (RSSIPollCount == 1) {
+		WifiRSSI1Update.sendCommand("")
+	}
+	if (RSSIPollCount == 2) {
+		WifiRSSI2Update.sendCommand("")
+	}
+	if (RSSIPollCount == 3) {
+		WifiRSSI3Update.sendCommand("")
+	}
+	if (RSSIPollCount == 4) {
+		WifiRSSI4Update.sendCommand("")
+	}
+	if (RSSIPollCount == 5) {
+		WifiRSSI5Update.sendCommand("")
+	}
+	if (RSSIPollCount == 6) {
+		WifiRSSI6Update.sendCommand("")
+	}
+	if (RSSIPollCount == 7) {
+		WifiRSSI7Update.sendCommand("")
+	}
+	if (RSSIPollCount == 8) {
+		WifiRSSI8Update.sendCommand("")
+	}
+	if (RSSIPollCount == 9) {
+		WifiRSSI9Update.sendCommand("")
+	}
+	if (RSSIPollCount == 9) {
+		WifiRSSI10Update.sendCommand("")
+	}
+	RSSIPollCount = RSSIPollCount + 1
+	WifiRSSI1Update.sendCommand("")
+	WifiRSSI2Update.sendCommand("")
+	WifiRSSI3Update.sendCommand("")
+	WifiRSSI4Update.sendCommand("")
+	WifiRSSI5Update.sendCommand("")
+	WifiRSSI6Update.sendCommand("")
+	WifiRSSI7Update.sendCommand("")
+	WifiRSSI8Update.sendCommand("")
+	WifiRSSI9Update.sendCommand("")
+	WifiRSSI10Update.sendCommand("")
+end
+
+
+
+
+rule "Receive Current LivingRoom Temperature"
+when
+  Item LivingRoomTemperature received update
+then 
+  LivingRoomTemperatureCurrent = LivingRoomTemperature.state as DecimalType
+  logDebug("stevequinnhousehold", "Receive Current LivingRoom Temperature ==>"+LivingRoomTemperatureCurrent)  
+end
+
+
+rule "Send LivingRoom Temperature"
+when
+  Item SendLivingRoomTemperatureMsg received update
+then 
+  logDebug("stevequinnhousehold", "Send LivingRoom Temperature ==>"+LivingRoomTemperatureCurrent)  
+  CurrentLivingRoomTemperatureMsg.sendCommand(LivingRoomTemperatureCurrent)
+end
+
+
+rule "Receive Current LivingRoom Humidity"
+when
+  Item LivingRoomHumidity received update
+then 
+  LivingRoomHumidityCurrent = LivingRoomHumidity.state as DecimalType
+  logDebug("stevequinnhousehold", "Receive Current LivingRoom Humidity ==>"+LivingRoomHumidityCurrent)  
+end
+
+
+rule "Send LivingRoom Humidity"
+when
+  Item SendLivingRoomHumidityMsg received update
+then 
+  logDebug("stevequinnhousehold", "Send LivingRoom Humidity ==>"+LivingRoomHumidityCurrent)  
+  CurrentLivingRoomHumidityMsg.sendCommand(LivingRoomHumidityCurrent) 
+end
+
+
+
+rule "Receive Current Garage Temperature"
+when
+  Item GarageTemperature received update
+then 
+  GarageTemperatureCurrent = GarageTemperature.state as DecimalType
+  logDebug("stevequinnhousehold", "Receive Current Garage Temperature ==>"+GarageTemperatureCurrent)  
+end
+
+
+rule "Send Garage Temperature"
+when
+  Item SendGarageTemperatureMsg received update
+then 
+  logDebug("stevequinnhousehold", "Send Garage Temperature ==>"+GarageTemperatureCurrent)  
+  CurrentGarageTemperatureMsg.sendCommand(GarageTemperatureCurrent)
+end
+
+
+rule "Receive Current Garage Humidity"
+when
+  Item GarageHumidity received update
+then 
+  GarageHumidityCurrent = GarageHumidity.state as DecimalType
+  logDebug("stevequinnhousehold", "Receive Current Garage Humidity ==>"+GarageHumidityCurrent)  
+end
+
+
+rule "Send Garage Humidity"
+when
+  Item SendGarageHumidityMsg received update
+then 
+  logDebug("stevequinnhousehold", "Send Garage Humidity ==>"+GarageHumidityCurrent)  
+  CurrentGarageHumidityMsg.sendCommand(GarageHumidityCurrent) 
+end
+
+
+rule "Send Time" 
+when
+  Item SendTimeMsg received update
+then 
+  // In format 'HH:MM', 24hr format
+  var SimpleDateFormat df = new SimpleDateFormat( "HH:mm" )
+  var String Timestamp = df.format( new Date() )
+  logDebug("stevequinnhousehold", "Send Time ==>"+Timestamp)  
+  CurrentTimeMsg.sendCommand(Timestamp)
+end
+
+
+rule "Send Date"
+when
+  Item SendDateMsg received update
+then 
+  // In format 'DD/MM/YY'
+  var SimpleDateFormat df = new SimpleDateFormat( "dd/MM/YY" )
+  var String Timestamp = df.format( new Date() )
+  logDebug("stevequinnhousehold", "Send Date ==>"+Timestamp)  
+  CurrentDateMsg.sendCommand(Timestamp)
+end
+
+
+
+rule "Control Study Lights"
+when
+  Item StudyLightsControlMsg received update
+then 
+  var StudyLightsControlStatus = StudyLightsControlMsg.state as DecimalType
+  logDebug("stevequinnhousehold", "Control Study Lights ==>"+StudyLightsControlStatus)  
+  if (StudyLightsControlStatus == 0)
+  {
+  	//postUpdate(EthernetSwanLight, OFF)
+  	//postUpdate(EthernetTopShelfLight, OFF)
+	EthernetSwanLightMsg.sendCommand(0)
+	EthernetTopShelfLightMsg.sendCommand(0) 	
+  } else {
+	  if (StudyLightsControlStatus == 1)
+	  {
+	  	//postUpdate(EthernetSwanLight, ON)
+	  	//postUpdate(EthernetTopShelfLight, ON)
+		EthernetSwanLightMsg.sendCommand(1)
+		EthernetTopShelfLightMsg.sendCommand(1) 	
+	  }  	
+  }
+end
+
+
+rule "Sound Bar On-Off"
+when
+  Item SetSoundBarOnOffButton received command
+then 
+  WiFiSoundBarOnOff.sendCommand("sonysb,OnOff,1")
+end
+
+rule "Sound Bar Mute"
+when
+  Item SetSoundBarMuteButton received command
+then 
+  WiFiSoundBarMute.sendCommand("sonysb,mute,1")
+end
+
+rule "Sound Bar Vol Up"
+when
+  Item SetSoundBarVolUpButton received command
+then 
+  WiFiSoundBarVolUp.sendCommand("SonySB,SndUp,5,400,1")
+end
+
+rule "Sound Bar Vol Down"
+when
+  Item SetSoundBarVolDownButton received command
+then 
+  WiFiSoundBarVolDown.sendCommand("SonySB,SndDn,5,400,1")
+end
+
+rule "TV On-Off"
+when
+  Item SetTVOnOffButton received command
+then 
+  WiFiTVGeneralMsg.sendCommand("sonytv,onoff,1")
+end
+
+rule "TV Cancel-Off"
+when
+  Item SetTVCancelOffButton received command
+then 
+  WiFiTVGeneralMsg.sendCommand("sonytv,sel,1")
+end
+
+rule "Satellite On-Off"
+when
+  Item SetSatelliteOnOffButton received command
+then 
+  WiFiSatelliteOnOff.sendCommand("Sky,onoff,1")
+end
+
+
+
+rule "Control Sound Bar"
+when
+  Item AVSoundBarControlMsg received update
+then 
+	var AVSoundBarControlStatus = AVSoundBarControlMsg.state.toString
+	logDebug("stevequinnhousehold", "Control Sound Bar ==>"+AVSoundBarControlStatus)  
+  if (AVSoundBarControlStatus == "OnOff")
+  {
+  	logDebug("stevequinnhousehold", "Control Sound Bar ==>Inside OnOff Block")  
+	WiFiSoundBarGeneralMsg.sendCommand("Sky,onoff,1")
+  } 	
+  if (AVSoundBarControlStatus == "Mute")
+  {
+  	logDebug("stevequinnhousehold", "Control Sound Bar ==>Inside Mute Block")  
+	WiFiSoundBarGeneralMsg.sendCommand("sonysb,mute,1")
+  } 	
+  if (AVSoundBarControlStatus == "VolUp")
+  {
+  	logDebug("stevequinnhousehold", "Control Sound Bar ==>Inside VolUp Block")  
+	WiFiSoundBarPartRawMsg.sendCommand("SonySB,SndUp,3,400,1")
+  } 	
+  if (AVSoundBarControlStatus == "VolDown")
+  {
+  	logDebug("stevequinnhousehold", "Control Sound Bar ==>Inside VolDown Block")  
+	WiFiSoundBarPartRawMsg.sendCommand("SonySB,SndDn,3,400,1")
+  } else {
+  	logDebug("stevequinnhousehold", "Control Sound Bar ==>Inside Else Block")  
+	WiFiSoundBarGeneralMsg.sendCommand(AVSoundBarControlStatus)
+  }
+end
+
+
+
+
+rule "Control TV"
+when
+  Item AVTVControlMsg received update
+then 
+	var AVTVControlStatus = AVTVControlMsg.state.toString
+	logDebug("stevequinnhousehold", "Control TV ==>"+AVTVControlStatus)  
+  if (AVTVControlStatus == "OnOff")
+  {
+  	logDebug("stevequinnhousehold", "Control TV ==>Inside OnOff Block")  
+	WiFiTVGeneralMsg.sendCommand("sonytv,onoff,1")
+  } else {
+  	logDebug("stevequinnhousehold", "Control TV ==>Inside Else Block")  
+	WiFiTVGeneralMsg.sendCommand(AVTVControlStatus)
+  } 	
+end
+
+
+rule "Control Satellite"
+when
+  Item AVSatelliteControlMsg received update
+then 
+	var AVSatelliteControlStatus = AVSatelliteControlMsg.state.toString
+	logDebug("stevequinnhousehold", "Control Satellite ==>"+AVSatelliteControlStatus)  
+  if (AVSatelliteControlStatus == "OnOff")
+  {
+  	logDebug("stevequinnhousehold", "Control Satellite ==>Inside OnOff Block")  
+	WiFiSatelliteGeneralMsg.sendCommand("Sky,onoff,1")
+  } else {
+  	logDebug("stevequinnhousehold", "Control Satellite ==>Inside Else Block")  
+	WiFiSatelliteGeneralMsg.sendCommand(AVSatelliteControlStatus)
+  }
+end
+
+
+
+rule "Control Mains Controller1"
+when
+  Item MainsController1ControlMsg received update
+then 
+	logDebug("stevequinnhousehold", "Control MainsController1 ==>"+MainsController1ControlMsg.state)  
+  if (MainsController1ControlMsg.state == "1")
+  {
+  	logDebug("stevequinnhousehold", "Control MainsController1 ==>Inside On Block")  
+	MainsController1GeneralMsg.sendCommand(1)
+  } 	
+  if (MainsController1ControlMsg.state == "0")
+  {
+  	logDebug("stevequinnhousehold", "Control MainsController1 ==>Inside Off Block")  
+	MainsController1GeneralMsg.sendCommand(0)
+  } 	
+end
+
+
+rule "Control Mains Controller2"
+when
+  Item MainsController2ControlMsg received update
+then 
+	logDebug("stevequinnhousehold", "Control MainsController2 ==>"+MainsController2ControlMsg.state)  
+  if (MainsController2ControlMsg.state == "1")
+  {
+  	logDebug("stevequinnhousehold", "Control MainsController2 ==>Inside On Block")  
+	MainsController2GeneralMsg.sendCommand(1)
+  } 	
+  if (MainsController2ControlMsg.state == "0")
+  {
+  	logDebug("stevequinnhousehold", "Control MainsController2 ==>Inside Off Block")  
+	MainsController2GeneralMsg.sendCommand(0)
+  } 	
+end
+
+
+

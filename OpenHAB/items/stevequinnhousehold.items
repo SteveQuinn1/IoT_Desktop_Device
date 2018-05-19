@@ -1,0 +1,306 @@
+Group All
+Group gGG  (All)
+Group gGH  (All)
+Group gGLR (All)
+Group gGK  (All)
+Group gGGB (All) 
+Group gGMB (All)
+Group gGS  (All)
+Group gGC  (All)
+Group gGT  (All) 
+Group gGWC (All)
+Group gGL  (All)
+
+Group GG_Garage       "Garage"         <garage>       (gGG)
+Group GH_Hall         "Hall"           <groundfloor>  (gGH)
+Group GLR_LivingRoom  "Living Room"    <groundfloor>  (gGLR)
+Group GK_Kitchen      "Kitchen"        <kitchen>      (gGK)
+Group GGB_GuestBed    "Guest Bedroom"  <bedroom>      (gGGB)
+Group GMB_MasterBed   "Master Bedroom" <bedroom>      (gGMB)
+Group GS_Study        "Study"          <office>       (gGS)
+Group GC_Config       "Study Config"   <wrench>       (gGC)
+Group GT_Trend        "Trends"         <line>         (gGT)
+Group GWC_Config      "WiFi Config"    <wrench>       (gGWC)
+Group GL_Loft         "Loft"           <attic>        (gGL)
+
+Group SummaryGroup "Summary"
+Number SummaryWiFiTemperature1 "Garage [%.2f \u00baC]" <temperature> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/1/TempStatus/1:state:default]"}
+Number SummaryWiFiTemperature2 "Hall [%.2f \u00baC]" <temperature> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/2/TempStatus/1:state:default]"}
+Number SummaryWiFiTemperature3 "Loft [%.2f \u00baC]" <temperature> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/3/TempStatus/1:state:default]"}
+Number SummaryWiFiTemperature4 "Kitchen [%.2f \u00baC]" <temperature> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/4/TempStatus/1:state:default]"}
+Number SummaryWiFiTemperature5 "Guest Bedroom [%.2f \u00baC]" <temperature> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/5/TempStatus/1:state:default]"}
+Number SummaryWiFiTemperature6 "Master Bedroom [%.2f \u00baC]" <temperature> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/6/TempStatus/1:state:default]"}
+Number SummaryWiFiTemperature7 "Study [%.2f \u00baC]" <temperature> (SummaryGroup) {mqtt="<[mosquitto:WFD/THBSen/7/TempStatus/1:state:default]"}
+Number SummaryWiFiTemperature8 "Living Room [%.2f \u00baC]" <temperature> (SummaryGroup) {mqtt="<[mosquitto:WFD/IRTHSen/1/TempStatus/1:state:default]"}
+Number SummaryWiFiHumidity1 "Garage [%.2f %%]" <humidity> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/1/HumdStatus/1:state:default]"}
+Number SummaryWiFiHumidity2 "Hall [%.2f %%]" <humidity> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/2/HumdStatus/1:state:default]"}
+Number SummaryWiFiHumidity3 "Loft [%.2f %%]" <humidity> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/3/HumdStatus/1:state:default]"}
+Number SummaryWiFiHumidity4 "Kitchen [%.2f %%]" <humidity> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/4/HumdStatus/1:state:default]"}
+Number SummaryWiFiHumidity5 "Guest Bedroom [%.2f %%]" <humidity> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/5/HumdStatus/1:state:default]"}
+Number SummaryWiFiHumidity6 "Master Bedroom [%.2f %%]" <humidity> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/6/HumdStatus/1:state:default]"}
+Number SummaryWiFiHumidity7 "Study [%.2f %%]" <humidity> (SummaryGroup) {mqtt="<[mosquitto:WFD/THBSen/7/HumdStatus/1:state:default]"}
+Number SummaryWiFiHumidity8 "Living Room [%.2f %%]" <humidity> (SummaryGroup) {mqtt="<[mosquitto:WFD/IRTHSen/1/HumdStatus/1:state:default]"}
+Number SummaryWiFiHeatIndex1 "Garage [%.2f \u00baC]" <fire> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/1/HeatIndStatus/1:state:default]"}
+Number SummaryWiFiHeatIndex2 "Hall [%.2f \u00baC]" <fire> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/2/HeatIndStatus/1:state:default]"}
+Number SummaryWiFiHeatIndex3 "Loft [%.2f \u00baC]" <fire> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/3/HeatIndStatus/1:state:default]"}
+Number SummaryWiFiHeatIndex4 "Kitchen [%.2f \u00baC]" <fire> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/4/HeatIndStatus/1:state:default]"}
+Number SummaryWiFiHeatIndex5 "Guest Bedroom [%.2f \u00baC]" <fire> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/5/HeatIndStatus/1:state:default]"}
+Number SummaryWiFiHeatIndex6 "Master Bedroom [%.2f \u00baC]" <fire> (SummaryGroup) {mqtt="<[mosquitto:WFD/THSen/6/HeatIndStatus/1:state:default]"}
+Number SummaryWiFiHeatIndex7 "Study [%.2f \u00baC]" <fire> (SummaryGroup) {mqtt="<[mosquitto:WFD/THBSen/7/HeatIndStatus/1:state:default]"}
+Number SummaryWiFiHeatIndex8 "Living Room [%.2f \u00baC]" <fire> (SummaryGroup) {mqtt="<[mosquitto:WFD/IRTHSen/1/HeatIndStatus/1:state:default]"}
+Number SummaryWiFiBarometricPressure "Air Pressure [%.2f mb]" <pressure> (SummaryGroup) {mqtt="<[mosquitto:WFD/THBSen/7/BarometricStatus/1:state:default]"}
+Number SummaryWiFiStudyAmbientLight "Ambient Light Study [%d Lux]" <sun> (SummaryGroup) {mqtt="<[mosquitto:WFD/THBSen/7/ALSStatus/1:state:default]"}
+Number SummaryWiFiLivingRoomAmbientLight "Ambient Light Living Room [%d Lux]" <sun> (SummaryGroup) {mqtt="<[mosquitto:WFD/IRTHSen/1/ALSStatus/1:state:default]"}
+
+Group GarageGroup "Garage" <garage>
+Number WiFiTemperature1 "Temperature [%.2f \u00baC]" <temperature> (GG_Garage) {mqtt="<[mosquitto:WFD/THSen/1/TempStatus/1:state:default]"}
+Number WiFiHumidity1 "Humidity [%.2f %%]" <humidity> (GG_Garage) {mqtt="<[mosquitto:WFD/THSen/1/HumdStatus/1:state:default]"}
+Number WiFiHeatIndex1 "HeatIndex [%.2f \u00baC]" <fire> (GG_Garage) {mqtt="<[mosquitto:WFD/THSen/1/HeatIndStatus/1:state:default]"}
+Switch WiFiLed1 "Led Garage" <switch> (GG_Garage) {mqtt=">[mosquitto:WFD/THSen/1/Led/Command/1:command:ON:1],>[mosquitto:WFD/THSen/1/Led/Command/1:command:OFF:0]"}
+
+Group HallGroup "Hall" <groundfloor>
+Number WiFiTemperature2 "Temperature [%.2f \u00baC]" <temperature> (GH_Hall) {mqtt="<[mosquitto:WFD/THSen/2/TempStatus/1:state:default]"}
+Number WiFiHumidity2 "Humidity [%.2f %%]" <humidity> (GH_Hall) {mqtt="<[mosquitto:WFD/THSen/2/HumdStatus/1:state:default]"}
+Number WiFiHeatIndex2 "HeatIndex [%.2f \u00baC]" <fire> (GH_Hall) {mqtt="<[mosquitto:WFD/THSen/2/HeatIndStatus/1:state:default]"}
+Switch WiFiLed2 "Led Hall" <switch> (GH_Hall) {mqtt=">[mosquitto:WFD/THSen/2/Led/Command/1:command:ON:1],>[mosquitto:WFD/THSen/2/Led/Command/1:command:OFF:0]"}
+
+Group LivingRoomGroup "Living Room" <groundfloor>
+Number WiFiTemperature8 "Temperature W [%.2f \u00baC]" <temperature> (GLR_LivingRoom) {mqtt="<[mosquitto:WFD/IRTHSen/1/TempStatus/1:state:default]"}
+Number WiFiHumidity8 "Humidity W [%.2f %%]" <humidity> (GLR_LivingRoom) {mqtt="<[mosquitto:WFD/IRTHSen/1/HumdStatus/1:state:default]"}
+Number WiFiHeatIndex8 "HeatIndex W [%.2f \u00baC]" <fire> (GLR_LivingRoom) {mqtt="<[mosquitto:WFD/IRTHSen/1/HeatIndStatus/1:state:default]"}
+Switch WiFiLed8 "Led Living Room" <switch> (GLR_LivingRoom) {mqtt=">[mosquitto:WFD/IRTHSen/1/Led/Command/1:command:ON:1],>[mosquitto:WFD/IRTHSen/1/Led/Command/1:command:OFF:0]"}
+Number WiFiAmbientLight2 "Ambient Light [%d Lux]" <sun> (GLR_LivingRoom) {mqtt="<[mosquitto:WFD/IRTHSen/1/ALSStatus/1:state:default]"}
+
+//Switch WiFiMainsSwitch1 "Mains Controller 1 [MAP(m.map):%s]" <switch> (GLR_LivingRoom) {mqtt=">[mosquitto:WFD/MainsCont/1/Relay/Command/1:command:ON:1],>[mosquitto:WFD/MainsCont/1/Relay/Command/1:command:OFF:0]"}
+Switch WiFiMainsSwitch1 "Mains Controller 1 [MAP(m.map):%s]" <button> (GLR_LivingRoom) {mqtt=">[mosquitto:WFD/MainsCont/1/Relay/Command/1:command:ON:1],>[mosquitto:WFD/MainsCont/1/Relay/Command/1:command:OFF:0]"}
+Switch WiFiMainsSwitch1Update "Mains Controller 1 Update" <switch> {mqtt=">[mosquitto:WFD/MainsCont/1/Relay/Status/1:command:ON:1]"}
+String WiFiMainsSwitch1UpdateConfirm (GLR_LivingRoom) {mqtt="<[mosquitto:WFD/MainsCont/1/Relay/Confirm/1:state:default]"}
+
+//Switch WiFiMainsSwitch2 "Mains Controller 2 [MAP(m.map):%s]" <switch> (GLR_LivingRoom) {mqtt=">[mosquitto:WFD/MainsCont/2/Relay/Command/1:command:ON:1],>[mosquitto:WFD/MainsCont/2/Relay/Command/1:command:OFF:0]"}
+Switch WiFiMainsSwitch2 "Mains Controller 2 [MAP(m.map):%s]" <button> (GLR_LivingRoom) {mqtt=">[mosquitto:WFD/MainsCont/2/Relay/Command/1:command:ON:1],>[mosquitto:WFD/MainsCont/2/Relay/Command/1:command:OFF:0]"}
+Switch WiFiMainsSwitch2Update "Mains Controller 2 Update" <switch> {mqtt=">[mosquitto:WFD/MainsCont/2/Relay/Status/1:command:ON:1]"}
+String WiFiMainsSwitch2UpdateConfirm (GLR_LivingRoom) {mqtt="<[mosquitto:WFD/MainsCont/2/Relay/Confirm/1:state:default]"}
+
+  
+
+Group KitchenGroup "Kitchen" <kitchen>
+Number WiFiTemperature4 "Temperature [%.2f \u00baC]" <temperature> (GK_Kitchen) {mqtt="<[mosquitto:WFD/THSen/4/TempStatus/1:state:default]"}
+Number WiFiHumidity4 "Humidity [%.2f %%]" <humidity> (GK_Kitchen) {mqtt="<[mosquitto:WFD/THSen/4/HumdStatus/1:state:default]"}
+Number WiFiHeatIndex4 "HeatIndex [%.2f \u00baC]" <fire> (GK_Kitchen) {mqtt="<[mosquitto:WFD/THSen/4/HeatIndStatus/1:state:default]"}
+Switch WiFiLed4 "Led Kitchen" <switch> (GK_Kitchen) {mqtt=">[mosquitto:WFD/THSen/4/Led/Command/1:command:ON:1],>[mosquitto:WFD/THSen/4/Led/Command/1:command:OFF:0]"}
+
+Group GuestBedroomGroup "Guest Bedroom" <bedroom>
+Number WiFiTemperature5 "Temperature [%.2f \u00baC]" <temperature> (GGB_GuestBed) {mqtt="<[mosquitto:WFD/THSen/5/TempStatus/1:state:default]"}
+Number WiFiHumidity5 "Humidity [%.2f %%]" <humidity> (GGB_GuestBed) {mqtt="<[mosquitto:WFD/THSen/5/HumdStatus/1:state:default]"}
+Number WiFiHeatIndex5 "HeatIndex [%.2f \u00baC]" <fire> (GGB_GuestBed) {mqtt="<[mosquitto:WFD/THSen/5/HeatIndStatus/1:state:default]"}
+Switch WiFiLed5 "Led Guest Bedroom" <switch> (GGB_GuestBed) {mqtt=">[mosquitto:WFD/THSen/5/Led/Command/1:command:ON:1],>[mosquitto:WFD/THSen/5/Led/Command/1:command:OFF:0]"}
+
+Group MasterBedroomGroup "Master Bedroom" <bedroom>
+Number WiFiTemperature6 "Temperature [%.2f \u00baC]" <temperature> (GMB_MasterBed) {mqtt="<[mosquitto:WFD/THSen/6/TempStatus/1:state:default]"}
+Number WiFiHumidity6 "Humidity [%.2f %%]" <humidity> (GMB_MasterBed) {mqtt="<[mosquitto:WFD/THSen/6/HumdStatus/1:state:default]"}
+Number WiFiHeatIndex6 "HeatIndex [%.2f \u00baC]" <fire> (GMB_MasterBed) {mqtt="<[mosquitto:WFD/THSen/6/HeatIndStatus/1:state:default]"}
+Switch WiFiLed6 "Led Master Bedroom" <switch> (GMB_MasterBed) {mqtt=">[mosquitto:WFD/THSen/6/Led/Command/1:command:ON:1],>[mosquitto:WFD/THSen/6/Led/Command/1:command:OFF:0]"}
+
+
+Group StudyGroup "Study" <office>
+Number WiFiTemperature7 "Temperature [%.2f \u00baC]" <temperature> (GS_Study) {mqtt="<[mosquitto:WFD/THBSen/7/TempStatus/1:state:default]"}
+Number WiFiHumidity7 "Humidity [%.2f %%]" <humidity> (GS_Study) {mqtt="<[mosquitto:WFD/THBSen/7/HumdStatus/1:state:default]"}
+Number WiFiHeatIndex7 "HeatIndex [%.2f \u00baC]" <fire> (GS_Study) {mqtt="<[mosquitto:WFD/THBSen/7/HeatIndStatus/1:state:default]"}
+Number WiFiBarometricPressure1 "Air Pressure [%.2f mb]" <pressure> (GS_Study) {mqtt="<[mosquitto:WFD/THBSen/7/BarometricStatus/1:state:default]"}
+Number WiFiAmbientLight1 "Ambient Light [%d Lux]" <sun> (GS_Study) {mqtt="<[mosquitto:WFD/THBSen/7/ALSStatus/1:state:default]"}
+Switch WiFiLed7 "Led" <switch> (GS_Study) {mqtt=">[mosquitto:WFD/THBSen/7/Led/Command/1:command:ON:1],>[mosquitto:WFD/THBSen/7/Led/Command/1:command:OFF:0]"}
+String WiFiButton1 "Button Status [MAP(b.map):%s]" <button> (GS_Study) {mqtt="<[mosquitto:WFD/THBSen/7/Button/Command/1:state:default]"}
+Switch WiFiButton1Update "Button Update" <switch> {mqtt=">[mosquitto:WFD/THBSen/7/Button/Status/1:command:ON:1]"}
+
+Number EthernetStudyLightTempUpdate "Study Controller Temp Update" <temperature> {mqtt=">[mosquitto:/EthernetDevice/Study/LightControllerTempQuery:command:ON:1]"}
+Switch EthernetSwanLight "Swan Light" <switch> (GS_Study) {mqtt=">[mosquitto:/EthernetDevice/Study/SwanLight:command:ON:1],>[mosquitto:/EthernetDevice/Study/SwanLight:command:OFF:0]"}
+Switch EthernetTopShelfLight "Top Shelf Light" <switch> (GS_Study) {mqtt=">[mosquitto:/EthernetDevice/Study/TopShelfLight:command:ON:1],>[mosquitto:/EthernetDevice/Study/TopShelfLight:command:OFF:0]"}
+Switch EthernetUnderDeskLight "Under Desk Light" <switch> (GS_Study) {mqtt=">[mosquitto:/EthernetDevice/Study/UnderDeskLight:command:ON:1],>[mosquitto:/EthernetDevice/Study/UnderDeskLight:command:OFF:0]"}
+Number EthernetStudyLCTemperature "Study Light internal [%.2f \u00baC]" <temperature> (GS_Study) {mqtt="<[mosquitto:/EthernetDevice/Study/LightControllerTemp:state:default]"}
+
+Switch EthernetStudyLightControllerUpdate "Button Update Study Lights" <switch> {mqtt=">[mosquitto:/EthernetDevice/Study/LightsQuery:command:ON:1]"}
+Number EthernetStudyLightStatusConfirm (GS_Study) {mqtt="<[mosquitto:/EthernetDevice/Study/LightConfirm:state:default]"}
+//Number EthernetSetLoggingPeriod "Logging Period [%d min]" <stopwatch> (GC_Config,ConfigGroup,ConfigGroupLoggingPeriodSet) { mqtt="<[mosquitto:/EthernetDevice/Study/LightConfirm:state:JS(hm2m.js)]"}
+
+Group LoftGroup "Loft" <attic>
+Number WiFiTemperature3 "Temperature W [%.2f \u00baC]" <temperature> (GL_Loft) {mqtt="<[mosquitto:WFD/THSen/3/TempStatus/1:state:default]"}
+Number WiFiHumidity3 "Humidity W [%.2f %%]" <humidity> (GL_Loft) {mqtt="<[mosquitto:WFD/THSen/3/HumdStatus/1:state:default]"}
+Number WiFiHeatIndex3 "HeatIndex W [%.2f \u00baC]" <fire> (GL_Loft) {mqtt="<[mosquitto:WFD/THSen/3/HeatIndStatus/1:state:default]"}
+Switch WiFiLed3 "Led Loft" <switch> (GL_Loft) {mqtt=">[mosquitto:WFD/THSen/3/Led/Command/1:command:ON:1],>[mosquitto:WFD/THSen/3/Led/Command/1:command:OFF:0]"}
+
+
+
+
+
+Group TrendsGroup "Trends" <line>
+Group TrendsGroupWeekly "Trends Weekly" <line>
+Group TrendsGroupWeeklyTemp "Weekly Temperature" <line>
+Group TrendsGroupWeeklyHumi "Weekly Humidity" <line>
+Group TrendsGroupWeeklyHI "Weekly Heat Index" <line>
+Group TrendsGroupWeeklyBaro "Weekly Barometric Pressure" <line>
+Group TrendsGroupWeeklyAmbientLight "Weekly Ambient Light" <line>
+Group TrendsGroupTemps "Temperature Trend" <line> (TrendsGroup)
+Group TrendsGroupHumid "Humidity Trend" <line> (TrendsGroup)
+Group TrendsGroupBaro "Barometric Trend" <line> (TrendsGroup)
+Group TrendsGroupAmbientLight "Ambient Light Trend" <line> (TrendsGroup)
+Group TrendsGroupHeatInd "Heat Index Trend" <line> (TrendsGroup)
+Group TrendsGroupStudyLightsTemp "Study Lights Trend" <line> (TrendsGroup)
+Number TrendsGroupTemperatureEthernet "Study [%.1f \u00baC]" <temperature> (TrendsGroupTemps) { mqtt="<[mosquitto:/EthernetDevice/Temp1Status:state:default]" }
+Number TrendsGroupTemperatureWifi1 "Garage [%.1f \u00baC]" <temperature> (TrendsGroupTemps) {mqtt="<[mosquitto:WFD/THSen/1/TempStatus/1:state:default]"}
+Number TrendsGroupTemperatureWifi2 "Hall [%.1f \u00baC]" <temperature> (TrendsGroupTemps) {mqtt="<[mosquitto:WFD/THSen/2/TempStatus/1:state:default]"}
+Number TrendsGroupTemperatureWifi3 "Loft [%.1f \u00baC]" <temperature> (TrendsGroupTemps) {mqtt="<[mosquitto:WFD/THSen/3/TempStatus/1:state:default]"}
+Number TrendsGroupTemperatureWifi4 "Kitchen [%.1f \u00baC]" <temperature> (TrendsGroupTemps) {mqtt="<[mosquitto:WFD/THSen/4/TempStatus/1:state:default]"}
+Number TrendsGroupTemperatureWifi5 "Guest Bedroom [%.1f \u00baC]" <temperature> (TrendsGroupTemps) {mqtt="<[mosquitto:WFD/THSen/5/TempStatus/1:state:default]"}
+Number TrendsGroupTemperatureWifi6 "Master Bedroom [%.1f \u00baC]" <temperature> (TrendsGroupTemps) {mqtt="<[mosquitto:WFD/THSen/6/TempStatus/1:state:default]"}
+Number TrendsGroupTemperatureWifi7 "Study [%.1f \u00baC]" <temperature> (TrendsGroupTemps) {mqtt="<[mosquitto:WFD/THBSen/7/TempStatus/1:state:default]"}
+Number TrendsGroupTemperatureWifi8 "Living Room [%.1f \u00baC]" <temperature> (TrendsGroupTemps) {mqtt="<[mosquitto:WFD/IRTHSen/1/TempStatus/1:state:default]"}
+Number TrendsGroupHumidityWifi1 "Garage [%.2f %%]" <humidity> (TrendsGroupHumid) {mqtt="<[mosquitto:WFD/THSen/1/HumdStatus/1:state:default]"}
+Number TrendsGroupHumidityWifi2 "Hall [%.2f %%]" <humidity> (TrendsGroupHumid) {mqtt="<[mosquitto:WFD/THSen/2/HumdStatus/1:state:default]"}
+Number TrendsGroupHumidityWifi3 "Loft [%.2f %%]" <humidity> (TrendsGroupHumid) {mqtt="<[mosquitto:WFD/THSen/3/HumdStatus/1:state:default]"}
+Number TrendsGroupHumidityWifi4 "Kitchen [%.2f %%]" <humidity> (TrendsGroupHumid) {mqtt="<[mosquitto:WFD/THSen/4/HumdStatus/1:state:default]"}
+Number TrendsGroupHumidityWifi5 "Guest Bedroom [%.2f %%]" <humidity> (TrendsGroupHumid) {mqtt="<[mosquitto:WFD/THSen/5/HumdStatus/1:state:default]"}
+Number TrendsGroupHumidityWifi6 "Master Bedroom [%.2f %%]" <humidity> (TrendsGroupHumid) {mqtt="<[mosquitto:WFD/THSen/6/HumdStatus/1:state:default]"}
+Number TrendsGroupHumidityWifi7 "Study [%.2f %%]" <humidity> (TrendsGroupHumid) {mqtt="<[mosquitto:WFD/THBSen/7/HumdStatus/1:state:default]"}
+Number TrendsGroupHumidityWifi8 "Living Room [%.2f %%]" <humidity> (TrendsGroupHumid) {mqtt="<[mosquitto:WFD/IRTHSen/1/HumdStatus/1:state:default]"}
+Number TrendsGroupBarometricWiFi1 "Air Pressure [%.2f mb]" <pressure> (TrendsGroupBaro) { mqtt="<[mosquitto:WFD/THBSen/7/BarometricStatus/1:state:default]" }
+Number TrendsGroupAmbeintLightWiFi1 "Study Ambient Light [%d Lux]" <sun> (TrendsGroupAmbientLight) { mqtt="<[mosquitto:WFD/THBSen/7/ALSStatus/1:state:default]" }
+Number TrendsGroupAmbeintLightWiFi2 "Living Room Ambient Light [%d Lux]" <sun> (TrendsGroupAmbientLight) { mqtt="<[mosquitto:WFD/IRTHSen/1/ALSStatus/1:state:default]" }
+Number TrendsGroupHeatIndexWifi1 "Garage [%.2f \u00baC]" <fire> (TrendsGroupHeatInd) {mqtt="<[mosquitto:WFD/THSen/1/HeatIndStatus/1:state:default]"}
+Number TrendsGroupHeatIndexWifi2 "Hall [%.2f \u00baC]" <fire> (TrendsGroupHeatInd) {mqtt="<[mosquitto:WFD/THSen/2/HeatIndStatus/1:state:default]"}
+Number TrendsGroupHeatIndexWifi3 "Loft [%.2f \u00baC]" <fire> (TrendsGroupHeatInd) {mqtt="<[mosquitto:WFD/THSen/3/HeatIndStatus/1:state:default]"}
+Number TrendsGroupHeatIndexWifi4 "Kitchen [%.2f \u00baC]" <fire> (TrendsGroupHeatInd) {mqtt="<[mosquitto:WFD/THSen/4/HeatIndStatus/1:state:default]"}
+Number TrendsGroupHeatIndexWifi5 "Guest Bedroom [%.2f \u00baC]" <fire> (TrendsGroupHeatInd) {mqtt="<[mosquitto:WFD/THSen/5/HeatIndStatus/1:state:default]"}
+Number TrendsGroupHeatIndexWifi6 "Master Bedroom [%.2f \u00baC]" <fire> (TrendsGroupHeatInd) {mqtt="<[mosquitto:WFD/THSen/6/HeatIndStatus/1:state:default]"}
+Number TrendsGroupHeatIndexWifi7 "Study [%.2f \u00baC]" <fire> (TrendsGroupHeatInd) {mqtt="<[mosquitto:WFD/THBSen/7/HeatIndStatus/1:state:default]"}
+Number TrendsGroupHeatIndexWifi8 "Living Room [%.2f \u00baC]" <fire> (TrendsGroupHeatInd) {mqtt="<[mosquitto:WFD/IRTHSen/1/HeatIndStatus/1:state:default]"}
+
+Number TrendsGroupStudyTemperatureEthernet "Study Light Controller Temp [%.2f \u00baC]" <temperature> (TrendsGroupStudyLightsTemp) {mqtt="<[mosquitto:/EthernetDevice/Study/LightControllerTemp:state:default]"}
+
+
+
+Group ConfigGroup "Config" <wrench>
+
+Group ConfigGroupLoggingSet "Logging" 
+Switch EthernetLogging "Logging" <logging> (GC_Config,ConfigGroup,ConfigGroupLoggingSet) {mqtt=">[mosquitto:WFD/THBSen/7/Logging/Command/1:command:ON:1],>[mosquitto:WFD/THBSen/7/Logging/Command/1:command:OFF:0]"}
+Switch EthernetLoggingUpdate (GC_Config,ConfigGroup,ConfigGroupLoggingSet) {mqtt=">[mosquitto:WFD/THBSen/7/Logging/Status/1:command:ON:1],>[mosquitto:WFD/THBSen/7/Logging/Status/1:command:OFF:0]"}
+Switch EthernetLoggingUpdateConfirm (GC_Config,ConfigGroup,ConfigGroupLoggingSet) {mqtt="<[mosquitto:WFD/THBSen/7/Logging/Confirm/1:command:ON:1],<[mosquitto:WFD/THBSen/7/Logging/Confirm/1:command:OFF:0]"}
+
+Group ConfigGroupLoggingPeriodSet "Logging Period" 
+//Number EthernetSetLoggingPeriod "Logging Period [%d min]" <stopwatch> (GC_Config,ConfigGroup,ConfigGroupLoggingPeriodSet)
+Number EthernetSetLoggingPeriod "Logging Period [%d min]" <stopwatch> (GC_Config,ConfigGroup,ConfigGroupLoggingPeriodSet) { mqtt="<[mosquitto:WFD/THBSen/7/LoggingPeriod/Confirm/1:state:JS(hm2m.js)]"}
+Switch EthernetSetLoggingPeriodButton "Set Logging Period" <none> (GC_Config,ConfigGroup,ConfigGroupLoggingPeriodSet)
+Switch EthernetLoggingPeriodUpdate (GC_Config,ConfigGroup,ConfigGroupLoggingPeriodSet) {mqtt=">[mosquitto:WFD/THBSen/7/LoggingPeriod/Status/1:command:ON:1],>[mosquitto:WFD/THBSen/7/LoggingPeriod/Status/1:command:OFF:0]"}
+//String EthernetLoggingPeriodUpdateConfirm "[%s]" (GC_Config,ConfigGroup,ConfigGroupLoggingPeriodSet) {mqtt="<[mosquitto:/EthernetDevice/GetLoggingPeriodConfirm:state:default]"}
+String EthernetSetLoggingPeriodCommand "[%s]" { mqtt=">[mosquitto:WFD/THBSen/7/LoggingPeriod/Set/1:command:*:default]" } 
+
+Group ConfigGroupDateSet "Date Set"
+DateTime Date "Date [%1$tA, %1$td/%1$tm/%1$tY]"	<calendar>	(GC_Config,ConfigGroup,ConfigGroupDateSet) { ntp="Europe/London:en_UK" }
+Switch SetDateButton "Set Date" <none>
+String EthernetSetDate "[%s]" { mqtt=">[mosquitto:WFD/THBSen/7/Date/Set/1:command:*:default]" } 
+
+Group ConfigGroupTimeSet "Time Set"
+DateTime Time "Time [%1$tl:%1$tM %1$tp]"	<clockimage>	(GC_Config,ConfigGroup,ConfigGroupTimeSet) { ntp="Europe/London:en_UK" }
+Switch SetTimeButton "Set Time" <none>
+String EthernetSetTime "[%s]" { mqtt=">[mosquitto:WFD/THBSen/7/Time/Set/1:command:*:default]" } 
+ 
+
+
+Group LightContGroup "Light Cont. Config" <wrench>
+
+Group LightContGroupOverTemp "Over Temp" 
+String EthernetLCAlarmStatus "Internal Temp Alarm [MAP(lc.map):%s]" <abell> (GC_Config,ConfigGroup,LightContGroupOverTemp) {mqtt="<[mosquitto:/EthernetDevice/Study/LightControllerTempAlarmConfirm:state:default]"}
+Switch EthernetLCReadTempAlarmButton "Read Alarm Status" <none>
+String EthernetLCAlarmStatusRead "[%s]" { mqtt=">[mosquitto:/EthernetDevice/Study/LightControllerTempAlarmQuery:command:*:default]" } 
+//Number EthernetSetLoggingPeriod "Logging Period [%d min]" <stopwatch> (GC_Config,ConfigGroup,ConfigGroupLoggingPeriodSet) { mqtt="<[mosquitto:/EthernetDevice/GetLoggingPeriodConfirm:state:JS(hm2m.js)]"}
+
+Group LightContGroupTemp "Temp" 
+Number EthernetLCTempStatus "Light Controller Temp [%.2f \u00baC]" <temperatureq> (GC_Config,ConfigGroup,LightContGroupTemp) {mqtt="<[mosquitto:/EthernetDevice/Study/LightControllerTemp:state:default]"}
+Switch EthernetLCReadTempButton "Read Temperature" <none>
+String EthernetLCTempStatusRead "[%s]" { mqtt=">[mosquitto:/EthernetDevice/Study/LightControllerTempQuery:command:*:default]" } 
+
+
+Group AVGroup "Entertainment Systems" <television>
+
+Group AVGroupSoundBar "Sound Bar"
+Switch SetSoundBarOnOffButton "Sound Bar" <none>
+String WiFiSoundBarOnOff "[%s]" { mqtt=">[mosquitto:WFD/IRTHSen/1/Rem/Command/1:command:*:default]" } 
+Switch SetSoundBarMuteButton "Mute" <none>
+String WiFiSoundBarMute "[%s]" { mqtt=">[mosquitto:WFD/IRTHSen/1/Rem/Command/1:command:*:default]" } 
+Switch SetSoundBarVolUpButton "Volume Up" <none>
+String WiFiSoundBarVolUp "[%s]" { mqtt=">[mosquitto:WFD/IRTHSen/1/Rem/Command/PartRaw/1:command:*:default]" } 
+Switch SetSoundBarVolDownButton "Volume Down" <none>
+String WiFiSoundBarVolDown "[%s]" { mqtt=">[mosquitto:WFD/IRTHSen/1/Rem/Command/PartRaw/1:command:*:default]" } 
+
+Group AVGroupTV "TV"
+Switch SetTVOnOffButton "TV" <none>
+Switch SetTVCancelOffButton "Cancel TV Off" <none>
+//String WiFiTVGeneralMsg "[%s]" { mqtt=">[mosquitto:WFD/IRTHSen/1/Rem/Command/1:command:*:default]" } 
+
+Group AVGroupSatellite "Satellite"
+Switch SetSatelliteOnOffButton "Satellite" <none>
+String WiFiSatelliteOnOff "[%s]" { mqtt=">[mosquitto:WFD/IRTHSen/1/Rem/Command/1:command:*:default]" } 
+
+
+ 
+Group TrendsGroupRSSI "RSSI Trend" <line> (TrendsGroup) 
+Group RSSIGroup "RSSI" <wifi>
+Number TrendsGroupWifiRSSI1 "Garage [%d dBm]" <wifi> (TrendsGroupRSSI) {mqtt="<[mosquitto:WFD/THSen/1/RSSILev/Confirm:state:default]"}
+String WifiRSSI1Update "WifiRSSI1 Update" {mqtt=">[mosquitto:WFD/THSen/1/RSSILev:command:*:default]"}
+Number TrendsGroupWifiRSSI2 "Hall [%d dBm]" <wifi> (TrendsGroupRSSI) {mqtt="<[mosquitto:WFD/THSen/2/RSSILev/Confirm:state:default]"}
+String WifiRSSI2Update "WifiRSSI2 Update" {mqtt=">[mosquitto:WFD/THSen/2/RSSILev:command:*:default]"}
+Number TrendsGroupWifiRSSI3 "Loft [%d dBm]" <wifi> (TrendsGroupRSSI) {mqtt="<[mosquitto:WFD/THSen/3/RSSILev/Confirm:state:default]"}
+String WifiRSSI3Update "WifiRSSI3 Update" {mqtt=">[mosquitto:WFD/THSen/3/RSSILev:command:*:default]"}
+Number TrendsGroupWifiRSSI4 "Kitchen [%d dBm]" <wifi> (TrendsGroupRSSI) {mqtt="<[mosquitto:WFD/THSen/4/RSSILev/Confirm:state:default]"}
+String WifiRSSI4Update "WifiRSSI4 Update" {mqtt=">[mosquitto:WFD/THSen/4/RSSILev:command:*:default]"}
+Number TrendsGroupWifiRSSI5 "Guest Bedroom [%d dBm]" <wifi> (TrendsGroupRSSI) {mqtt="<[mosquitto:WFD/THSen/5/RSSILev/Confirm:state:default]"}
+String WifiRSSI5Update "WifiRSSI5 Update" {mqtt=">[mosquitto:WFD/THSen/5/RSSILev:command:*:default]"}
+Number TrendsGroupWifiRSSI6 "Master Bedroom [%d dBm]" <wifi> (TrendsGroupRSSI) {mqtt="<[mosquitto:WFD/THSen/6/RSSILev/Confirm:state:default]"}
+String WifiRSSI6Update "WifiRSSI6 Update" {mqtt=">[mosquitto:WFD/THSen/6/RSSILev:command:*:default]"}
+Number TrendsGroupWifiRSSI7 "Study [%d dBm]" <wifi> (TrendsGroupRSSI) {mqtt="<[mosquitto:WFD/THBSen/7/RSSILev/Confirm:state:default]"}
+String WifiRSSI7Update "WifiRSSI7 Update" {mqtt=">[mosquitto:WFD/THBSen/7/RSSILev:command:*:default]"}
+Number TrendsGroupWifiRSSI8 "Living Room Mains Cont. 1 [%d dBm]" <wifi> (TrendsGroupRSSI) {mqtt="<[mosquitto:WFD/MainsCont/1/RSSILev/Confirm:state:default]"}
+String WifiRSSI8Update "WifiRSSI8 Update" {mqtt=">[mosquitto:WFD/MainsCont/1/RSSILev:command:*:default]"}
+Number TrendsGroupWifiRSSI9 "Living Room Mains Cont. 2 [%d dBm]" <wifi> (TrendsGroupRSSI) {mqtt="<[mosquitto:WFD/MainsCont/2/RSSILev/Confirm:state:default]"}
+String WifiRSSI9Update "WifiRSSI9 Update" {mqtt=">[mosquitto:WFD/MainsCont/2/RSSILev:command:*:default]"}
+Number TrendsGroupWifiRSSI10 "Living Room [%d dBm]" <wifi> (TrendsGroupRSSI) {mqtt="<[mosquitto:WFD/IRTHSen/1/RSSILev/Confirm:state:default]"}
+String WifiRSSI10Update "WifiRSSI10 Update" {mqtt=">[mosquitto:WFD/IRTHSen/1/RSSILev:command:*:default]"}
+
+
+
+
+
+
+Group  gGGS  (All)
+Group  GG_GarageStats        "GarageStats"     <garage>      (gGGS)
+Group  GG_LivingRoomStats    "LivingRoomStats" <groundfloor> (gGGS)
+Number GarageTemperature     "Garage Temp"     <temperature> (GG_GarageStats)     { mqtt="<[mosquitto:WFD/THSen/1/TempStatus/1:state:default]"}
+Number GarageHumidity        "Garage Humidity" <humidity>    (GG_GarageStats)     { mqtt="<[mosquitto:WFD/THSen/1/HumdStatus/1:state:default]"}
+Number LivingRoomTemperature "Garage Temp"     <temperature> (GG_LivingRoomStats) { mqtt="<[mosquitto:WFD/IRTHSen/1/TempStatus/1:state:default]"}
+Number LivingRoomHumidity    "Garage Humidity" <humidity>    (GG_LivingRoomStats) { mqtt="<[mosquitto:WFD/IRTHSen/1/HumdStatus/1:state:default]"}
+Number SendGarageTemperatureMsg                                                   { mqtt="<[mosquitto:/OHB/Req/GarageTemp:state:default]" } 
+Number SendGarageHumidityMsg                                                      { mqtt="<[mosquitto:/OHB/Req/GarageHumid:state:default]" } 
+Number SendLivingRoomTemperatureMsg                                               { mqtt="<[mosquitto:/OHB/Req/LivingRoomTemp:state:default]" } 
+Number SendLivingRoomHumidityMsg                                                  { mqtt="<[mosquitto:/OHB/Req/LivingRoomHumid:state:default]" } 
+String CurrentGarageTemperatureMsg                                         "[%s]" { mqtt=">[mosquitto:/OHB/Conf/GarageTemp:command:*:default]" } 
+String CurrentGarageHumidityMsg                                            "[%s]" { mqtt=">[mosquitto:/OHB/Conf/GarageHumid:command:*:default]" } 
+String CurrentLivingRoomTemperatureMsg                                     "[%s]" { mqtt=">[mosquitto:/OHB/Conf/LivingRoomTemp:command:*:default]" } 
+String CurrentLivingRoomHumidityMsg                                        "[%s]" { mqtt=">[mosquitto:/OHB/Conf/LivingRoomHumid:command:*:default]" } 
+String SendTimeMsg                                                                { mqtt="<[mosquitto:/OHB/Req/SystemTime:state:default]" } 
+String CurrentTimeMsg                                                      "[%s]" { mqtt=">[mosquitto:/OHB/Conf/SystemTime:command:*:default]" } 
+String SendDateMsg                                                                { mqtt="<[mosquitto:/OHB/Req/SystemDate:state:default]" } 
+String CurrentDateMsg                                                      "[%s]" { mqtt=">[mosquitto:/OHB/Conf/SystemDate:command:*:default]" } 
+Number StudyLightsControlMsg                                                      { mqtt="<[mosquitto:/OHB/Req/StudyLights/Control:state:default]" } 
+Number EthernetSwanLightMsg                                                       { mqtt=">[mosquitto:/EthernetDevice/Study/SwanLight:command:*:default]"}
+Number EthernetTopShelfLightMsg                                                   { mqtt=">[mosquitto:/EthernetDevice/Study/TopShelfLight:command:*:default]"}
+
+String AVSoundBarControlMsg                                                       { mqtt="<[mosquitto:/OHB/Req/AVSoundBar/Control:state:default]" } 
+String WiFiSoundBarGeneralMsg                                                     { mqtt=">[mosquitto:WFD/IRTHSen/1/Rem/Command/1:command:*:default]"}
+String WiFiSoundBarPartRawMsg                                                     { mqtt=">[mosquitto:WFD/IRTHSen/1/Rem/Command/PartRaw/1:command:*:default]"}
+String AVTVControlMsg                                                             { mqtt="<[mosquitto:/OHB/Req/AVTV/Control:state:default]" } 
+String WiFiTVGeneralMsg                                                           { mqtt=">[mosquitto:WFD/IRTHSen/1/Rem/Command/1:command:*:default]"}
+String AVSatelliteControlMsg                                                      { mqtt="<[mosquitto:/OHB/Req/AVSatellite/Control:state:default]" } 
+String WiFiSatelliteGeneralMsg                                                    { mqtt=">[mosquitto:WFD/IRTHSen/1/Rem/Command/1:command:*:default]"}
+String MainsController1ControlMsg                                                 { mqtt="<[mosquitto:/OHB/Req/MainsController1/Control:state:default]" } 
+String MainsController1GeneralMsg                                                 { mqtt=">[mosquitto:WFD/MainsCont/1/Relay/Command/1:command:*:default]" } 
+String MainsController2ControlMsg                                                 { mqtt="<[mosquitto:/OHB/Req/MainsController2/Control:state:default]" } 
+String MainsController2GeneralMsg                                                 { mqtt=">[mosquitto:WFD/MainsCont/2/Relay/Command/1:command:*:default]" } 

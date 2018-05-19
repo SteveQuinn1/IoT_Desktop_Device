@@ -1,0 +1,260 @@
+sitemap stevequinnhousehold label="SteveQuinn Household"
+{
+	Frame item=SummaryGroup{
+		Text item=SummaryWiFiTemperature1
+		Text item=SummaryWiFiHumidity1
+		//Text item=SummaryWiFiHeatIndex1
+		Text item=SummaryWiFiTemperature7
+		Text item=SummaryWiFiHumidity7
+		//Text item=SummaryEthernetHeatIndex
+		Text item=SummaryWiFiBarometricPressure
+	}
+  
+	Frame {
+		Text item=GarageGroup{
+			Frame {
+				Text item=WiFiTemperature1
+				Text item=WiFiHumidity1
+				Text item=WiFiHeatIndex1
+				Switch item=WiFiLed1
+			}
+		}
+
+		Text item=HallGroup{
+			Frame {
+				Text item=WiFiTemperature2
+				Text item=WiFiHumidity2
+				Text item=WiFiHeatIndex2
+				Switch item=WiFiLed2
+			}
+		}
+
+		Text item=LivingRoomGroup{
+			Frame {
+				Text item=WiFiTemperature8
+				Text item=WiFiHumidity8
+				Text item=WiFiHeatIndex8
+				Switch item=WiFiLed8
+				Text item=WiFiAmbientLight2
+				Switch item=WiFiMainsSwitch1
+				Switch item=WiFiMainsSwitch2
+				}
+			Frame {
+					Text item=AVGroup{
+					Switch item=SetSoundBarOnOffButton mappings=[ON="On-Off"]
+					Switch item=SetSoundBarMuteButton mappings=[ON="Mute"]
+					Switch item=SetSoundBarVolUpButton mappings=[ON="Up"]
+					Switch item=SetSoundBarVolDownButton mappings=[ON="Down"]
+					Switch item=SetTVOnOffButton mappings=[ON="On-Off"]
+					Switch item=SetTVCancelOffButton mappings=[ON="Cancel-Off"]
+					Switch item=SetSatelliteOnOffButton mappings=[ON="On-Off"]
+					}
+				}
+			}
+		
+
+		Text item=KitchenGroup{
+			Frame {
+				Text item=WiFiTemperature4
+				Text item=WiFiHumidity4
+				Text item=WiFiHeatIndex4
+				Switch item=WiFiLed4
+			}
+		}
+
+		Text item=GuestBedroomGroup{
+			Frame {
+				Text item=WiFiTemperature5
+				Text item=WiFiHumidity5
+				Text item=WiFiHeatIndex5
+				Switch item=WiFiLed5
+			}
+		}
+
+		Text item=MasterBedroomGroup{
+			Frame {
+				Text item=WiFiTemperature6
+				Text item=WiFiHumidity6
+				Text item=WiFiHeatIndex6
+				Switch item=WiFiLed6
+			}
+		}
+
+		Text item=StudyGroup{
+			Frame {
+			    Text item=WiFiTemperature7
+				Text item=WiFiHumidity7
+				Text item=WiFiHeatIndex7
+				Text item=WiFiBarometricPressure1
+				Text item=WiFiAmbientLight1
+				Switch item=WiFiLed7
+				Text item=WiFiButton1
+				Switch item=EthernetSwanLight
+				Switch item=EthernetTopShelfLight
+				Switch item=EthernetUnderDeskLight
+				Text item=EthernetStudyLCTemperature
+			}
+			Frame {
+				 Text item=ConfigGroup{
+					 Switch item=EthernetLogging
+					 Setpoint item=EthernetSetLoggingPeriod minValue=10 maxValue=1440 step=10
+					 Switch item=EthernetSetLoggingPeriodButton mappings=[ON="Set"]
+					 Text item=Date
+					 Switch item=SetDateButton mappings=[ON="Set"]
+					 Text item=Time 
+					 Switch item=SetTimeButton mappings=[ON="Set"]
+				
+				 }				
+				 Text item=LightContGroup{
+					Text item=EthernetLCAlarmStatus 
+					Switch item=EthernetLCReadTempAlarmButton mappings=[ON="Read"]
+					Text item=EthernetLCTempStatus 
+					Switch item=EthernetLCReadTempButton mappings=[ON="Read"]
+				
+				}				
+			   }
+        	}
+
+
+		Text item=LoftGroup{
+			Frame {
+				Text item=WiFiTemperature3
+				Text item=WiFiHumidity3
+				Text item=WiFiHeatIndex3
+				Switch item=WiFiLed3
+			}
+		}
+
+        
+		Text item=TrendsGroup{
+			Frame {
+				Text item=TrendsGroupBaro{
+					Frame {
+						Text item=SummaryWiFiBarometricPressure
+					}
+					Frame {
+						//Chart label="Barometric Pressure" item=TrendsGroupBarometricEthernet period=4h refresh=10000
+						//Chart label="Barometric Pressure" item=TrendsGroupBaro period=4h refresh=1000
+						Chart label="Barometric Pressure" item=TrendsGroupBaro period=D refresh=1000
+					}	
+				}
+				Text item=TrendsGroupAmbientLight{
+					Frame {
+						Text item=SummaryWiFiStudyAmbientLight
+						Text item=SummaryWiFiLivingRoomAmbientLight
+					}
+					Frame {
+						//Chart label="Barometric Pressure" item=TrendsGroupBarometricEthernet period=4h refresh=10000
+						//Chart label="Barometric Pressure" item=TrendsGroupBaro period=4h refresh=1000
+						Chart label="Ambient Light" item=TrendsGroupAmbientLight period=D refresh=1000
+					}
+				}
+				Text item=TrendsGroupTemps{
+					Frame {
+						Text item=SummaryWiFiTemperature1
+						Text item=SummaryWiFiTemperature2
+						Text item=SummaryWiFiTemperature3
+						Text item=SummaryWiFiTemperature4
+						Text item=SummaryWiFiTemperature5
+						Text item=SummaryWiFiTemperature6
+						Text item=SummaryWiFiTemperature7
+						Text item=SummaryWiFiTemperature8
+					}
+					Frame {
+						//Chart label="Temperature W" item=TrendsGroupTemperatureWiFi period=4h refresh=10000
+						//Chart label="Temperature E" item=TrendsGroupTemperatureEthernet period=4h refresh=10000
+						//Chart label="Temperature" item=TrendsGroupTemps period=4h refresh=1000
+						Chart label="Temperature" item=TrendsGroupTemps period=D refresh=300
+					}
+				}
+				Text item=TrendsGroupHumid{
+					Frame {
+						Text item=SummaryWiFiHumidity1
+						Text item=SummaryWiFiHumidity2
+						Text item=SummaryWiFiHumidity3
+						Text item=SummaryWiFiHumidity4
+						Text item=SummaryWiFiHumidity5
+						Text item=SummaryWiFiHumidity6
+						Text item=SummaryWiFiHumidity7
+						Text item=SummaryWiFiHumidity8
+					}
+					Frame {
+						//Chart label="Humidity W" item=TrendsGroupHumidityWiFi period=4h refresh=10000
+						//Chart label="Humidity E" item=TrendsGroupHumidityEthernet period=4h refresh=10000
+						//Chart label="Humidity" item=TrendsGroupHumid period=4h refresh=1000
+						Chart label="Humidity" item=TrendsGroupHumid period=D refresh=300
+					}
+				}
+				Text item=TrendsGroupHeatInd{
+					Frame {
+						Text item=SummaryWiFiHeatIndex1
+						Text item=SummaryWiFiHeatIndex2
+						Text item=SummaryWiFiHeatIndex3
+						Text item=SummaryWiFiHeatIndex4
+						Text item=SummaryWiFiHeatIndex5
+						Text item=SummaryWiFiHeatIndex6
+						Text item=SummaryWiFiHeatIndex7
+						Text item=SummaryWiFiHeatIndex8
+					}
+					Frame {
+						//Chart label="Heat Index W" item=TrendsGroupHeatIndexWiFi period=4h refresh=10000
+						//Chart label="Heat Index E" item=TrendsGroupHeatIndexEthernet period=4h refresh=10000
+						//Chart label="Heat Index" item=TrendsGroupHeatInd period=4h refresh=1000
+						Chart label="Heat Index" item=TrendsGroupHeatInd period=D refresh=300
+					}
+				}
+				Text item=TrendsGroupWeekly{
+					Text item=TrendsGroupWeeklyTemp{
+						Frame label="Temperature" {
+							Chart label="Temperature" item=TrendsGroupTemps period=W refresh=300
+						}
+					}	
+					Text item=TrendsGroupWeeklyHumi{
+						Frame label="Humidity" {
+							Chart label="Humidity" item=TrendsGroupHumid period=W refresh=300
+						}
+					}	 
+					Text item=TrendsGroupWeeklyHI{
+						Frame label="Heat Index" {
+							Chart label="Heat Index" item=TrendsGroupHeatInd period=W refresh=300
+						}
+					}	
+					Text item=TrendsGroupWeeklyBaro{
+						Frame label="Barometric Pressure" {
+							Chart label="Barometric Pressure" item=TrendsGroupBaro period=W refresh=300
+						}
+					}	
+					Text item=TrendsGroupWeeklyStudyAmbientLight{
+						Frame label="Study Ambient Light Level" {
+							Chart label="Study Ambient Light Level" item=TrendsGroupStudyAmbientLight period=W refresh=300
+						}
+					}	
+				}
+				Text item=TrendsGroupStudyLightsTemp{
+					Text item=TrendsGroupStudyTemperatureEthernet
+					Chart label="Study Light Controller" item=TrendsGroupStudyLightsTemp period=D refresh=1000
+				}
+				Text item=TrendsGroupRSSI{
+					Frame {
+						Text item=TrendsGroupWifiRSSI1
+						Text item=TrendsGroupWifiRSSI2
+						Text item=TrendsGroupWifiRSSI3
+						Text item=TrendsGroupWifiRSSI4
+						Text item=TrendsGroupWifiRSSI5
+						Text item=TrendsGroupWifiRSSI6
+						Text item=TrendsGroupWifiRSSI7
+						Text item=TrendsGroupWifiRSSI8
+						Text item=TrendsGroupWifiRSSI9
+						Text item=TrendsGroupWifiRSSI10
+					}
+					Frame {
+						Chart label="RSSI Levels" item=TrendsGroupRSSI period=D refresh=1000
+						//Chart label="RSSI Levels" item=TrendsGroupRSSI period=D refresh=1000
+					}
+				}
+			}
+		}
+       
+	}
+
+} 

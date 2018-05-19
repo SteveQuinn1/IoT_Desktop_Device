@@ -1,0 +1,8 @@
+on=SOn
+off=SOff
+on=TOn
+off=TOff
+on=UOn
+off=UOff
+undefined=unknown
+-=unknown
