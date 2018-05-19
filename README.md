@@ -72,3 +72,7 @@ If you are not familiar with programming the ATtiny85 and ATMega328P see the fol
 #### OpenHAB
 
 These are the OpenHAB configuration files I used to integrate the IoT Desktop device into my home IoT network.
+
+To set up an MQTT broker see [here](https://www.instructables.com/id/Setting-Up-an-MQTT-Broker-Part-2-IoT-Home-Automati/)
+
+To set up OpenHAB see [here](https://www.instructables.com/id/Setting-Up-and-Configuring-OpenHAB-Part-6-IoT-Home/)
