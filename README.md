@@ -27,7 +27,7 @@ These are python based automated regression tests executed when there has been a
 When the test runs (by calling the doit.bat batch file) a time stamped log is displayed as execution proceeds. This log is also dumped to a text file.
 Given time stamping is included, it is a useful tool to determine if there have been any dynamic changes in execution after a code change.
 
-Note : This testing capability requires the use of the I2C LCD library I created as it allows the user to directly read both DD and CG ram off in the LCD memory. This is how automation is achieved. As far as I am aware my library is the only I2C LCD library which exposes this functionality. [here](https://github.com/SteveQuinn1/LiquidCrystal_I2C_PCF8574) 
+Note : This testing capability requires the use of the I2C LCD library I created as it allows the user to directly read both DD and CG ram in the LCD memory. This is how automation is achieved. As far as I am aware my library is the only I2C LCD library which exposes this functionality. [here](https://github.com/SteveQuinn1/LiquidCrystal_I2C_PCF8574) 
 
 #### data
 
