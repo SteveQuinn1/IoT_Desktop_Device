@@ -39,9 +39,13 @@ There are six text files named 'secvals.txt', 'calvals.txt', 'confvals.txt', 'co
 secvals.txt : contains six entries used by the IoT device to connect to your home network. You will need to add your own ID and P/W here.
 
 calvals.txt : Contains simple calibration data for the system humidity, temperature and barometric sensors.
+
 confvals.txt : Contains configurable entries to control the automatic switching of the display back light depending upon ambient room lighing levels, scroll delay times etc.
+
 consenin.txt : Contains configurable entries which enable the unit to subscribe to two topics Temp and Humidity and link these topics to a logical name (bedroom, kitchen, hall etc.)
+
 congesud.txt : Contains configurable gesture entries which are matched to Up and Down gestures respectively. 
+
 conbutin.txt : Contains configurable button entries which are matched to the two user programmable buttons. 
 
 
