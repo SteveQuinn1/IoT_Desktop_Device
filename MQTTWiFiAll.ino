@@ -534,9 +534,9 @@ boolean bBrokerPresent    = false;
 #define MQTT_BROKER_IP_STRING_MAX_LEN           30
 #define MQTT_BROKER_IP_DEFAULT                  "192.168.1.44"
 #define MQTT_BROKER_PORT_DEFAULT                ((int)1883)
-#define STA_NETWORK_SSID_DEFAULT                "SENSOR"
+#define STA_NETWORK_SSID_DEFAULT                "DSKTPDEV"
 #define STA_NETWORK_PASSWORD_DEFAULT            "PASSWORD"
-#define AP_NETWORK_SSID_DEFAULT                 "SENSOR"
+#define AP_NETWORK_SSID_DEFAULT                 "DSKTPDEV"
 #define AP_NETWORK_PASSWORD_DEFAULT             "PASSWORD"
 #define NETWORK_CONNECTION_ATTEMPTS_DEFAULT     ((int)10)
 #define MQTT_BROKER_CONNECTION_ATTEMPTS_DEFAULT ((int)10)
