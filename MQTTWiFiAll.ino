@@ -86,6 +86,9 @@
 //                   Added topic to allow the reading of the contents of the system LCD to enable automated testing,
 //                   Added topic to allow setting of a given Configurable Sensor on the system LCD to enable automated testing,
 //                   Added logic to handle sensor failure for Barometer and Gesture Sensors.
+// 30/05/18 : 16_9_6 Added bSDCardPresent variable to stop a missing SD card from crashing software
+// 30/05/18 : 16_9_7 Added extra start up state to cater for missing SD card.
+// 11/08/18 : 16_9_8 Corrected bug in fileRead for FILE_VAR_INSTANCE_TYPE_BOOL. Added clean default setting of bAllowGestureControl.
 //
 // Start up sequence
 // -----------------
@@ -454,6 +457,7 @@ int iElapsedLoggingTimeInMinutes;
 File logFile;
 const char tmpStrSystemFilename[] = "FILENAME.csv";
 
+boolean bSDCardPresent = false;
 typedef enum eLoggingStatusTypeTag {
   eLoggingInactive    = 0,
   eLoggingActive      = 1,
@@ -774,11 +778,12 @@ String swVersion;
 
 // Gesture control
 #define GESTURE_SENSOR_I2C_ADDRESS 0x3F
+#define ALLOW_GESTURE_CONTROL_VALUE_DEFAULT true
 APDS9960_NonBlocking gestureSensor(GESTURE_SENSOR_I2C_ADDRESS);
 boolean bGestureSensorFail                 = false;  // Flags true at initialisation
 boolean bGestureAvailableFlag              = false;
 uint8_t uiGestureValue                     = APDS9960_GVAL_NONE;
-bool bAllowGestureControl                  = true;   // If set true the system will read the gesture sensor
+bool bAllowGestureControl                  = ALLOW_GESTURE_CONTROL_VALUE_DEFAULT;   // If set true the system will read the gesture sensor
 bool bAllowConfigurableGestureControl      = false;  // If set true the system will allow the use of up and down gestures
 #define MAX_MQTT_PAYLOAD_STRING              1024
 #define MAX_CONFIGURABLE_GESTURE_INSTANCES   2
@@ -891,7 +896,8 @@ typedef enum {
    eSENSORSTATE_NO_CONFIG    = 1,
    eSENSORSTATE_PENDING_NW   = 2,
    eSENSORSTATE_PENDING_MQTT = 3,
-   eSENSORSTATE_ACTIVE       = 4
+   eSENSORSTATE_ACTIVE       = 4,
+   eSENSORSTATE_NO_SD        = 5
 } eSENSORSTATE;
 
 eSENSORSTATE eSENSORSTATE_STATE = eSENSORSTATE_INIT;
@@ -933,7 +939,8 @@ const char *SensorStates[]= {
   "eSENSORSTATE_NO_CONFIG",
   "eSENSORSTATE_PENDING_NW",
   "eSENSORSTATE_PENDING_MQTT",
-  "eSENSORSTATE_ACTIVE"
+  "eSENSORSTATE_ACTIVE",
+  "eSENSORSTATE_NO_SD"
 };
 
 char *printStateChange(eSENSORSTATE ThisState, eSENSORSTATE NextState, const char *InThisFunction)
@@ -1236,13 +1243,22 @@ void setup() {
     #endif
     logFilenameOld[0] = 0;
     updateLogging();  
+    bSDCardPresent = true;
   } else {
     currentLoggingStatus = eLoggingFault;
     newLoggingStatus = eLoggingFault;
+    bSDCardPresent = false;
+    if (!bSDCardPresent) {
+      lcd.setCursor(0,0);
+      lcd.writeStr("No SD Card"); // print message
+    }
     #ifdef DEBUG_GENERAL
     Serial.println("SD initialisation failed! Card not responding");
     #endif
   }  
+
+  bAllowGestureControl = ALLOW_GESTURE_CONTROL_VALUE_DEFAULT
+  
   delay(2000);
   
   // Try to read the calibration values file. If missing this will set defaults
@@ -1260,7 +1276,10 @@ void setup() {
   bScrollDisplay = false;
   bNewTemperatureHumidityData = false;
   // Set up initial conditions
-  eSENSORSTATE_STATE = eSENSORSTATE_INIT;
+  if (bSDCardPresent)
+    eSENSORSTATE_STATE = eSENSORSTATE_INIT;
+  else
+    eSENSORSTATE_STATE = eSENSORSTATE_NO_SD;
   WiFi.mode(WIFI_OFF);
 
   // Set up timers
@@ -1483,6 +1502,13 @@ void loop(){
            yield();
            //delay(10); 
            break;
+
+    case eSENSORSTATE_NO_SD : // SD Card is missing so give only local functionality
+           // Delay to allow ESP8266 WIFI functions to run
+           yield();
+           //delay(10); 
+           break;
+           
   }
 }
 
@@ -2365,6 +2391,7 @@ int fileWrite(File f, FileVarInstance *fviArray, int iTotalParametersToWrite) {
 
 
 
+
 int fileRead(File f, FileVarInstance *fviArray, int iTotalParametersToRead) {
     String s;
     for (int i = 0; i < iTotalParametersToRead; i++){
@@ -2381,7 +2408,7 @@ int fileRead(File f, FileVarInstance *fviArray, int iTotalParametersToRead) {
                 *((int *)(fviArray[i].ptrVar)) = s.toInt();
                 break;
         case FILE_VAR_INSTANCE_TYPE_BOOL :
-                *((int *)(fviArray[i].ptrVar)) = (s.toInt()==0?false:true);
+                *((bool *)(fviArray[i].ptrVar)) = (s.toInt()==0?false:true);
                 break;
         default : // Unknown data type
                 return 1;
@@ -2487,6 +2514,8 @@ void readConfigurationParameters()
     displayBacklightLowerValue    = DISPLAY_BACKLIGHT_LOWER_VALUE_DEFAULT;
     
     displayDelayBeforeScrollValue = DISPLAY_DELAY_BEFORE_SCROLL_VALUE_DEFAULT;
+    bAllowGestureControl = ALLOW_GESTURE_CONTROL_VALUE_DEFAULT
+
     #ifdef DEBUG_GENERAL
     Serial.println("Failed to read SD Conf Vals");
     #endif
@@ -2981,7 +3010,7 @@ void handleNetworkConfig()
   pass_response += "   <title>Form submitted</title>";
   pass_response += " </head>";
   pass_response += " <body>";
-  pass_response += "   <p><font face='Helvetica, Arial, sans-serif' size='5' color='#3366ff'> <b> Sensor Configuration Home Page </b> </font></p>";
+  pass_response += "   <p><font face='Helvetica, Arial, sans-serif' size='5' color='#3366ff'> <b> IoT Desktop Device Configuration Home Page </b> </font></p>";
   pass_response += "   <p><font face='Helvetica, Arial, sans-serif'>New configuration details now submitted</font></p>";
   pass_response += "   <p><font face='Helvetica, Arial, sans-serif'><a href='index.htm'>Return to main page</a></font></p>";
   pass_response += " </body>";
@@ -2992,7 +3021,7 @@ void handleNetworkConfig()
   fail_response += "   <title>Form not submitted</title>";
   fail_response += " </head>";
   fail_response += " <body>";
-  fail_response += "   <p><font face='Helvetica, Arial, sans-serif' size='5' color='#3366ff'> <b> Sensor Configuration Home Page </b> </font></p>";
+  fail_response += "   <p><font face='Helvetica, Arial, sans-serif' size='5' color='#3366ff'> <b> IoT Desktop Device Configuration Home Page </b> </font></p>";
   fail_response += "   <p><font face='Helvetica, Arial, sans-serif'>Return to main page and re-submit details</font></p>";
   fail_response += "   <p><font face='Helvetica, Arial, sans-serif'><a href='index.htm'>Return to main page</a></font></p>";
   fail_response += " </body>";
@@ -4088,6 +4117,7 @@ void readAPDS9960(boolean *bGestureAvailableFlag, uint8_t *uiGestureValue)
 
 
 void handleGesture(void) {
+  if (!bSDCardPresent) return;
   if (bGestureSensorFail) return;
   if (bAllowGestureControl) {
     if ( bGestureAvailableFlag ) {
@@ -4239,6 +4269,7 @@ void readConfigurableUpDownGestureInput(void){
 
 void checkButton(void)
 {
+  if (!bSDCardPresent) return;
   if(myButton0.update() && myButton0.read() == HIGH){ // Read button status and check for HIGH or LOW (button uses a pull up resistor)
   #ifdef DEBUG_BUTTONS
   Serial.println("Button");
